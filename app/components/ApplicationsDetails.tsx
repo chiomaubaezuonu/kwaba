@@ -104,9 +104,9 @@ const ApplicationsDetails = () => {
             </li>
             </ul> */}
           <ul className="list-disc list-inside flex flex-col justify-self-start text-[0.7rem] flex-wrap text-[#585858] font-medium mb-4">
-            {appDetails.map((detail) => {
+            {appDetails.map((detail, index) => {
               return (
-                <li className="font-medium my-2.5">
+                <li key={index} className="font-medium my-2.5">
                   <span>{detail.label}</span>
                   <span className={detail.valueClass}>{detail.value}</span>
                 </li>

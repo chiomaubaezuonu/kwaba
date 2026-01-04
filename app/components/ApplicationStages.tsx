@@ -54,7 +54,6 @@ export const applicationStages = [
 const ApplicationStages = ({id, className= "" }: ApplicationStagesProps) => {
 
 const { selectedFilter } = useGlobalContext()
-console.log(selectedFilter)
 
   return (
     <div>

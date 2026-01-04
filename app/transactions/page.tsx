@@ -5,7 +5,6 @@ import Container from "../components/Container";
 import FilterBar, { FilterBarProps } from "../components/FilterBar";
 import Table from "../components/Table";
 
-
 export const transactionFilterData: FilterBarProps["filterData"] = [
   {
     filterName: "Awaiting Disbursement",
@@ -34,7 +33,7 @@ const page = () => {
 
   return (
     <Container>
-      <h2 className="text-base font-bold text-[#a8a7a7]">Renter Screening</h2>
+      <h2 className="text-base font-bold text-[#a8a7a7]">Transactions</h2>
       <FilterBar filterData={transactionFilterData} />
       <Table />
     </Container>
