@@ -2,7 +2,11 @@
 import Container from "@/app/components/Container";
 import { useGlobalContext } from "@/app/GlobalContext";
 import Link from "next/link";
-import { contactInfo, paymentStructureData } from "@/app/components/constants";
+import {
+  contactInfo,
+  paymentStructureData,
+  loanData,
+} from "@/app/components/constants";
 import Button from "@/app/components/Button";
 import ApplicationStages from "@/app/components/ApplicationStages";
 import ApplicationsDetails from "@/app/components/ApplicationsDetails";
@@ -19,13 +23,16 @@ export default function ApplicantDetails({ backLinkLabel }: ApplicantProps) {
   const { id } = useParams<{ id: string }>();
 
   const pathName = usePathname();
-  const router = useRouter()
+  const router = useRouter();
 
   return (
     <Container>
       <div className="flex justify-between">
         <div className="w-[78%]">
-          <span onClick={() => router.back()} className="transition duration-300 ease-in-out hover:bg-[#0000000D] cursor-pointer inline-flex items-center rounded-[0.3rem] py-2.5 px-6 mb-2">
+          <span
+            onClick={() => router.back()}
+            className="transition duration-300 ease-in-out hover:bg-[#0000000D] cursor-pointer inline-flex items-center rounded-[0.3rem] py-2.5 px-6 mb-2"
+          >
             <img src="/images/left-arrow.svg" alt="" className="w-4 mr-4" />
             <span className="text-base font-bold text-[#a8a7a7]">
               {`Back to ${backLinkLabel}`}
@@ -36,12 +43,12 @@ export default function ApplicantDetails({ backLinkLabel }: ApplicantProps) {
               <div className="flex items-center">
                 <div className="flex justify-between items-center">
                   <span className="text-white mr-6 text-7xl rounded-[0.8rem] bg-[#69c0ff] pt-4 w-32 h-32 text-center">
-                    P
+                    J
                   </span>
                 </div>
                 <div className="flex flex-col font-medium">
                   <strong className="text-[1.4rem] font-bold">
-                    Precious Balogun
+                    Johnson Balogun
                   </strong>
                   {contactInfo.slice(0, 3).map((contact, index) => {
                     return (
@@ -108,82 +115,189 @@ export default function ApplicantDetails({ backLinkLabel }: ApplicantProps) {
             <div className="flex justify-between mt-8">
               <div className="flex justify-between">
                 <div className="flex flex-col px-8">
-                  <p className="text-[0.875rem]">Requested amount</p>
-                  <p className="text-[#51a4fb] text-xl font-bold">₦1,200,000</p>
-                  {paymentStructureData.slice(0, 3).map((payment, index) => {
-                    return (
-                      <div
-                        key={index}
-                        className="flex justify-between  items-center py-2.5 px-0 border-b-[0.063rem] border-b-gray-200"
-                      >
-                        <span className="text-[#c3c3c3] text-[0.75rem] mr-8">
-                          {payment.title}
-                        </span>
-                        {!payment.duration ? (
-                          <span className="text-[0.9rem] font-medium">
-                            {payment.amount}
-                          </span>
-                        ) : (
-                          <span className="text-[0.9rem] font-medium">
-                            {payment.duration}
-                          </span>
-                        )}
-                      </div>
-                    );
-                  })}
+                  <p className="text-[0.75rem] font-bold">
+                    {pathName !== "/transactions"
+                      ? "Loan amount"
+                      : "Requested amount"}
+                  </p>
+                  <p className="text-[#20c578] text-xl font-bold">₦850,000</p>
+                  {!pathName.startsWith("/transactions") ? (
+                    <div>
+                      {paymentStructureData
+                        .slice(0, 3)
+                        .map((payment, index) => {
+                          return (
+                            <div
+                              key={index}
+                              className="flex justify-between  items-center py-2.5 px-0 border-b-[0.06  rem] border-b-gray-200"
+                            >
+                              <span className="text-[#c3c3c3] text-[0.75rem] mr-8">
+                                {payment.title}
+                              </span>
+                              {!payment.duration ? (
+                                <span className="text-[0.9rem] font-medium">
+                                  {payment.amount}
+                                </span>
+                              ) : (
+                                <span className="text-[0.9rem] font-medium">
+                                  {payment.duration}
+                                </span>
+                              )}
+                            </div>
+                          );
+                        })}
+                    </div>
+                  ) : (
+                    <div>
+                      {loanData.slice(0, 2).map((loan, index) => {
+                        return (
+                          <div
+                            key={index}
+                            className="flex justify-between  items-center py-2.5 px-0 border-b-[0.063rem] border-b-gray-200"
+                          >
+                            <span className="text-[#c3c3c3] text-[0.713rem] mr-8">
+                              {loan.title}
+                            </span>
+                            {!loan.duration ? (
+                              <span className="text-[0.9rem] font-medium">
+                                {loan.amount}
+                              </span>
+                            ) : (
+                              <span className="text-[0.9rem] font-medium">
+                                {loan.duration}
+                              </span>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
                 <div className="w-[0.2rem] bg-[#0000000d]"></div>
                 <div className="flex flex-col px-8">
-                  <p className="text-[0.875rem]">Requested amount</p>
-                  <p className="text-[#20c578] text-xl font-bold">₦850,000</p>
-                  {paymentStructureData.slice(2).map((payment, index) => {
-                    return (
-                      <div
-                        key={index}
-                        className="flex justify-between items-center py-2.5 px-0 border-b-[0.063rem] border-b-gray-200"
-                      >
-                        <span className="text-[#c3c3c3] text-[0.75rem] mr-8">
-                          {payment.title}
-                        </span>
-                        {!payment.duration ? (
-                          <span className="text-[0.9rem] font-medium">
-                            {payment.amount}
-                          </span>
-                        ) : (
-                          <span className="text-[0.9rem] font-medium">
-                            {payment.duration}
-                          </span>
-                        )}
-                      </div>
-                    );
-                  })}
+                  <p className="text-[0.875rem]">Amount due</p>
+                  <p className="text-[#20c578] text-xl font-bold">₦708,333</p>
+                  {!pathName.startsWith("/transactions") ? (
+                    <div>
+                      {paymentStructureData.slice(3).map((payment, index) => {
+                        return (
+                          <div
+                            key={index}
+                            className="flex justify-between items-center py-2.5 px-0 border-b-[0.063rem] border-b-gray-200"
+                          >
+                            <span className="text-[#c3c3c3] text-[0.75rem] mr-8">
+                              {payment.title}
+                            </span>
+                            {!payment.duration ? (
+                              <span className="text-[0.9rem] font-medium">
+                                {payment.amount}
+                              </span>
+                            ) : (
+                              <span className="text-[0.9rem] font-medium">
+                                {payment.duration}
+                              </span>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <div>
+                      {loanData.slice(2).map((loan, index) => {
+                        return (
+                          <div
+                            key={index}
+                            className="flex justify-between items-center py-2.5 px-0 border-b-[0.063rem] border-b-gray-200"
+                          >
+                            <span className="text-[#c3c3c3] text-[0.75rem] mr-8">
+                              {loan.title}
+                            </span>
+                            <span className="text-[0.9rem] font-medium">
+                              {loan.amount}
+                            </span>
+
+                            <span className="text-[0.9rem] font-medium">
+                              {loan.date}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
               </div>
-              <div className="flex items-end">
-                {" "}
-                <Button
-                  htmlType="button"
-                  className="bg-[#d9ffde] text-[#20c578]"
-                >
-                  <img
-                    src="/images/tick.svg"
-                    className="w-4"
-                    alt="qualify tick"
-                  />
-                  Qualify
-                </Button>
-                <Button
-                  htmlType="button"
-                  className="bg-[#ffe8e8] text-[#fa4444]"
-                >
-                  <img
-                    src="/images/decline-application-icon.svg"
-                    className="w-4"
-                    alt="decline application icon"
-                  />
-                  Decline
-                </Button>
-              </div>
+              {pathName.startsWith("/applications") && (
+                <div className="flex items-end">
+                  {" "}
+                  <Button
+                    htmlType="button"
+                    className="bg-[#d9ffde] text-[#20c578]"
+                  >
+                    <img
+                      src="/images/tick.svg"
+                      className="w-4"
+                      alt="qualify tick"
+                    />
+                    Qualify
+                  </Button>
+                  <Button
+                    htmlType="button"
+                    className="bg-[#ffe8e8] text-[#fa4444]"
+                  >
+                    <img
+                      src="/images/decline-application-icon.svg"
+                      className="w-4"
+                      alt="decline application icon"
+                    />
+                    Decline
+                  </Button>
+                </div>
+              )}
+
+              {pathName.startsWith("/renter-screening") && (
+                <div className="flex items-end">
+                  {" "}
+                  <Button
+                    onClick={() => router.push(`/renter-screening/${id}/verify`)}
+                    htmlType="button"
+                    className="bg-[#d9ffde] text-[#20c578] cursor-pointer"
+                  >
+                    <img
+                      src="/images/verify-renter-icon.svg"
+                      className="w-4"
+                      alt="verify-renter-icon"
+                    />
+                    Verify Renter
+                  </Button>
+                </div>
+              )}
+              {pathName.startsWith("/transactions") && (
+                <div className="flex items-end">
+                  {" "}
+                  <Button
+                    htmlType="button"
+                    className="bg-[#ffffff] text-[#20c578] border text-[0.75rem] border-[#20c578] py-[0.4rem] px-3.5"
+                  >
+                    <img
+                      src="/images/verify-renter-icon.svg"
+                      className="w-4"
+                      alt="verify renter icon"
+                    />
+                    Complete payment
+                  </Button>
+                  <Button
+                    htmlType="button"
+                    className="bg-[#20c578] text-[#ffffff] text-[0.75rem] border border-[#20c578] py-[0.4rem] px-3.5"
+                  >
+                    <img
+                      src="/images/add-payment-icon.svg"
+                      className="w-4"
+                      alt="add payment icon"
+                    />
+                    Add payment
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
           <ApplicationsDetails />

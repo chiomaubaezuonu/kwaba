@@ -95,8 +95,8 @@ export const contactInfo: ContactInfo[] = [
   },
   {
     image: "/images/email-icon2.svg",
-    link: "mailto:preciousness023@gmail.com?subject=Rent%20Application&body=Hello%Precious,",
-    text: "preciousness023@gmail.com",
+    link: "mailto:johnson023@gmail.com?subject=Rent%20Application&body=Hello%Precious,",
+    text: "johnson023@gmail.com",
   },
   {
     image: "/images/phone.svg",
@@ -105,7 +105,7 @@ export const contactInfo: ContactInfo[] = [
   },
   {
     image: "/images/send-email-icon.svg",
-    link: "mailto:preciousness023@gmail.com?subject=Rent%20Application&body=Hello%Precious,",
+    link: "mailto:johnson023@gmail.com?subject=Rent%20Application&body=Hello%Precious,",
     text: "Send Email",
   },
   {
@@ -143,10 +143,38 @@ export const paymentStructureData: PaymentStructure[] = [
     title: "Final Approved Amount",
     amount: "₦850,000",
   },
-
+  {
+    title: "Final Monthly Payment",
+    amount: "₦70,833.33",
+  },
   {
     title: "Duration",
     duration: "12 Months",
+  },
+];
+interface LoanData {
+  title: string;
+  amount?: string;
+  duration?: string;
+  date?: string;
+}
+
+export const loanData: LoanData[] = [
+  {
+    title: "Monthly Payment",
+    amount: "₦70,833.33",
+  },
+  {
+    title: "Duration",
+    duration: "2 of 12 months",
+  },
+  {
+    title: "Last amount paid",
+    amount: "₦70,833.33",
+  },
+  {
+    title: "Next due date",
+    date: "21 January, 2026",
   },
 ];
 

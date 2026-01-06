@@ -201,8 +201,6 @@ const page = () => {
   return (
     <div>
       <ApplicantDetails backLinkLabel='Applications'/>
-      {/* <ApplicantDetails backLinkLabel='Renter screening'/>
-      <ApplicantDetails backLinkLabel='Transactions'/> */}
     </div>
   )
 }
