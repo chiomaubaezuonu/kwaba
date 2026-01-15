@@ -1,31 +1,45 @@
 "use client";
-import Button from "@/app/components/Button";
+
+import Analysis from "@/app/components/analysis";
 import Container from "@/app/components/Container";
-import { useRouter } from "next/navigation";
+import KwabaButton from "@/app/components/KwabaButton";
+import LandlordVerificationForm from "@/app/components/LandlordVerificationForm";
+import LandlordVerification from "@/app/components/LandlordVerificationForm";
+import { useGlobalContext } from "@/app/GlobalContext";
+import { useParams, useRouter } from "next/navigation";
 
 import React, { useState } from "react";
 
-const verificationSteps = [
+export const verificationSteps = [
   "Employer Check",
   "Salary Analysis",
   "Landlord and Renter Verification",
   "Referee Confirmation",
   "Credit Check",
 ];
-const questions = [
-  "Does employer's website exist?",
-  "Online profile match",
-  "Is work email '@company'?",
-  "Employer verified renter?",
+export const questions = [
+  { id: 1, question: "Does employer's website exist?" },
+  { id: 2, question: "Is work email '@company'?" },
+  { id: 3, question: "Online profile match?" },
+  { id: 4, question: "Employer verified renter?" },
+  { id: 5, question: "Does landlord know renter?", answer: "" },
+  { id: 6, question: "Receipt for last payment", answer: "" },
 ];
 
 const page = () => {
   const [answer, setAnswer] = useState("Yes");
 
   const router = useRouter();
+  const {
+    showSalaryAnalysis,
+    setShowSalaryAnalysis,
+    showLandlordVerification,
+    setShowLandlordVerification,
+  } = useGlobalContext();
 
   return (
     <Container>
+      {/* First thing to do, make sure that all options are not selected just by clicking one option */}
       <span
         onClick={() => router.back()}
         className="transition duration-300 ease-in-out hover:bg-[#0000000D] cursor-pointer inline-flex items-center rounded-[0.3rem] py-2.5 px-6 mb-2"
@@ -35,115 +49,127 @@ const page = () => {
           Back to Renter
         </span>
       </span>
-      <div className="p-6 rounded-[0.8rem] bg-white text-[#082353]">
-        <div className="block mb-6 text-2xl">
-          <strong>Employee Verification - </strong> <span> Employer Check</span>
-        </div>
-        <div className="flex items-start">
-          <div className="bg-[#f5f5f5] py-4 px-5 text-sm rounded-[0.8rem] w-60 flex flex-col ">
-            {verificationSteps.map((step, index) => (
-              <div key={index} className="flex items-center my-4">
-                <span
-                  className={`rounded-full w-3 h-3 flex items-center justify-center ${
-                    index === 0 ? "bg-[#21ad26]" : "bg-[#c3c3c3]"
-                  } mr-2.5`}
-                >
-                  {index === 0 && (
-                    <img
-                      src="/images/tick3.svg"
-                      alt=""
-                      className="w-3.5 h-2.5"
-                    />
-                  )}
-                </span>
-                <span
-                  className={`${
-                    index === 0 ? "font-bold" : "font-bold text-[#a7a7a7]"
-                  }`}
-                >
-                  {step}
-                </span>
-              </div>
-            ))}
+      {!showSalaryAnalysis && !showLandlordVerification && (
+        <div className="p-6 rounded-[0.8rem] bg-white text-[#082353]">
+          <div className="block mb-6 text-2xl">
+            <strong>Employee Verification - </strong>{" "}
+            <span> Employer Check</span>
           </div>
+          <div className="flex items-start">
+            <div className="bg-[#f5f5f5] py-4 px-5 text-sm rounded-[0.8rem] w-60 flex flex-col ">
+              {verificationSteps.map((step, index) => (
+                <div key={index} className="flex items-center my-4">
+                  <span
+                    className={`rounded-full w-3 h-3 flex items-center justify-center ${
+                      index === 0 ? "bg-[#21ad26]" : "bg-[#c3c3c3]"
+                    } mr-2.5`}
+                  >
+                    {index === 0 && (
+                      <img
+                        src="/images/tick3.svg"
+                        alt=""
+                        className="w-3.5 h-2.5"
+                      />
+                    )}
+                  </span>
+                  <span
+                    className={`${
+                      index === 0 ? "font-bold" : "font-bold text-[#a7a7a7]"
+                    }`}
+                  >
+                    {step}
+                  </span>
+                </div>
+              ))}
+            </div>
 
-          <div className="ml-8 flex  border border-t-0 border-x-0 border-b-gray-200 w-full self-stretch">
-            <div className="mr-32 font-semibold">
-              <div className="text-[0.9rem]">
-                {questions.slice(0, 2).map((question, index) => (
-                  <div key={index} className="mb-8">
-                    <span className="flex items-center">
-                      <span className="rounded-full w-1 h-1 bg-[#082353] mr-2.5"></span>
-                      <span>{question}</span>
-                    </span>
-                    <div className="flex items-center mt-[0.4rem] font-black">
-                      <span
-                        onClick={() => setAnswer("Yes")}
-                        className={`text-[0.9rem] cursor-pointer py-2.5 px-3.5 mr-2.5 rounded-[0.2rem] ${
-                          answer === "Yes"
-                            ? "border border-[#51a4fb] text-[#082353] bg-[#e7f7ff]"
-                            : "text-[#878787] border border-[#878787] bg-white"
-                        }`}
-                      >
-                        Yes
+            <div className="ml-8 flex  border border-t-0 border-x-0 border-b-gray-200 w-full self-stretch">
+              <div className="mr-32 font-semibold">
+                <div className="text-[0.9rem]">
+                  {questions.slice(0, 2).map((question, index) => (
+                    <div key={index} className="mb-8">
+                      <span className="flex items-center">
+                        <span className="rounded-full w-1 h-1 bg-[#082353] mr-2.5"></span>
+                        <span>{question.question}</span>
                       </span>
-                      <span
-                        onClick={() => setAnswer("No")}
-                        className={`text-[0.9rem] cursor-pointer py-2.5 px-3.5 mr-2.5 rounded-[0.2rem] ${
-                          answer === "No"
-                            ? "border border-[#51a4fb] text-[#082353] bg-[#e7f7ff]"
-                            : "text-[#878787] border border-[#878787] bg-white"
-                        }`}
-                      >
-                        No
-                      </span>
+                      <div className="flex items-center mt-[0.4rem] font-black">
+                        <span
+                          onClick={() => setAnswer("Yes")}
+                          className={`text-[0.9rem] cursor-pointer py-2.5 px-3.5 mr-2.5 rounded-[0.2rem] ${
+                            answer === "Yes"
+                              ? "border border-[#51a4fb] text-[#082353] bg-[#e7f7ff]"
+                              : "text-[#878787] border border-[#878787] bg-white"
+                          }`}
+                        >
+                          Yes
+                        </span>
+                        <span
+                          onClick={() => setAnswer("No")}
+                          className={`text-[0.9rem] cursor-pointer py-2.5 px-3.5 mr-2.5 rounded-[0.2rem] ${
+                            answer === "No"
+                              ? "border border-[#51a4fb] text-[#082353] bg-[#e7f7ff]"
+                              : "text-[#878787] border border-[#878787] bg-white"
+                          }`}
+                        >
+                          No
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
-            <div className="flex">
-              <div className="text-[0.9rem]">
-                {questions.slice(0, 2).map((question, index) => (
-                  <div key={index} className="mb-8">
-                    <span className="flex items-center">
-                      <span className="rounded-full w-1 h-1 bg-[#082353] mr-2.5"></span>
-                      <span>{question}</span>
-                    </span>
-                    <div className="flex items-center mt-[0.4rem] font-black">
-                      <span
-                        onClick={() => setAnswer("Yes")}
-                        className={`text-[0.9rem] cursor-pointer py-2.5 px-3.5 mr-2.5 rounded-[0.2rem] ${
-                          answer === "Yes"
-                            ? "border border-[#51a4fb] text-[#082353] bg-[#e7f7ff]"
-                            : "text-[#878787] border border-[#878787] bg-white"
-                        }`}
-                      >
-                        Yes
+              <div className="flex font-semibold ">
+                <div className="text-[0.9rem]">
+                  {questions.slice(2, 4).map((question, index) => (
+                    <div key={index} className="mb-8">
+                      <span className="flex items-center">
+                        <span className="rounded-full w-1 h-1 bg-[#082353] mr-2.5"></span>
+                        <span>{question.question}</span>
                       </span>
-                      <span
-                        onClick={() => setAnswer("No")}
-                        className={`text-[0.9rem] cursor-pointer py-2.5 px-3.5 mr-2.5 rounded-[0.2rem] ${
-                          answer === "No"
-                            ? "border border-[#51a4fb] text-[#082353] bg-[#e7f7ff]"
-                            : "text-[#878787] border border-[#878787] bg-white"
-                        }`}
-                      >
-                        No
-                      </span>
+                      <div className="flex items-center mt-[0.4rem] font-black">
+                        <span
+                          onClick={() =>
+                            question.id === index
+                              ? setAnswer("No")
+                              : setAnswer("Yes")
+                          }
+                          className={`text-[0.9rem] cursor-pointer py-2.5 px-3.5 mr-2.5 rounded-[0.2rem] ${
+                            answer === "Yes"
+                              ? "border border-[#51a4fb] text-[#082353] bg-[#e7f7ff]"
+                              : "text-[#878787] border border-[#878787] bg-white"
+                          }`}
+                        >
+                          Yes
+                        </span>
+                        <span
+                          onClick={() => setAnswer("No")}
+                          className={`text-[0.9rem] cursor-pointer py-2.5 px-3.5 mr-2.5 rounded-[0.2rem] ${
+                            answer === "No"
+                              ? "border border-[#51a4fb] text-[#082353] bg-[#e7f7ff]"
+                              : "text-[#878787] border border-[#878787] bg-white"
+                          }`}
+                        >
+                          No
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>
+          <div className="flex m-6 justify-end">
+            <KwabaButton
+              onClick={() => setShowSalaryAnalysis(true)}
+              className="ml-6 cursor-pointer bg-[#51a4fb] text-white rounded-[0.3rem] py-2.5 px-8 border border-[#51a4fb]"
+            >
+              Next
+            </KwabaButton>
+          </div>
         </div>
-        <div className="flex m-6 justify-end">
-          <Button className="ml-6 bg-[#51a4fb] text-white rounded-[0.3rem] py-2.5 px-8 border border-[#51a4fb]">
-            Next
-          </Button>
-        </div>
-      </div>
+      )}
+      {showSalaryAnalysis && !showLandlordVerification && <Analysis />}
+      {showLandlordVerification && <LandlordVerificationForm />}
     </Container>
   );
 };

@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { applicationsFilterData } from "../applications/page";
-import Button from "./Button";
-import { buttonData } from "./Button";
+import Button from "./KwabaButton";
+import KwabaButton, { buttonData } from "./KwabaButton";
 import Input from "./Input";
 import { useGlobalContext } from "../GlobalContext";
 import { usePathname, useRouter } from "next/navigation";
@@ -160,25 +160,42 @@ const Table = () => {
         <strong>New Applications List</strong>
         <div className="mb-4 flex gap-1">
           {buttonData.map((data, index) => (
-              <Button key={index} className={data.className}>
-                <img src={data.image} alt="" className="w-4" />
-                {data.text}
-              </Button>
+            <Button key={index} className={data.className}>
+              <img src={data.image} alt="" className="w-4" />
+              {data.text}
+            </Button>
           ))}
         </div>
       </div>
       <div className="flex items-center mx-0 mt-2 mb-6 gap-3">
-        <div>
-          <Input placeholder="Search" htmlType="text" />
+        <div className="w-60 flex items-center border-[.05rem] rounded-[0.3rem] border-[#d3d2d2] relative h-[2.45rem] p-[0.3rem] self-center">
+          <img
+            src="/images/search.svg"
+            alt="search icon"
+            className="w-4 mr-2"
+          />
+          <Input
+            placeholder="Search"
+            htmlType="text"
+            className="border-none placeholder:text-[#d3d2d2]"
+          />
         </div>
-        <select name="" id="">
-          <option value="">Select Filter</option>
-          <option value="">First</option>
-          <option value="">Second</option>
-        </select>
-        <Button className="bg-[#e5f2ff] text-[#51A4FB] ml-0  mt-5 border-[0.063rem] py-[0.35rem] px-6 border-[#51A4FB]">
+        <div className="select-wrapper">
+          <select
+            name=""
+            id=""
+            className="custom-select cursor-pointer outline-none border-[.05rem] rounded-[0.3rem] border-[#d3d2d2] w-48 py-[0.4rem] pr-[2.7rem] pl-[0.8rem]"
+          >
+            <option value="" className="#000000b3">
+              Select Filter
+            </option>
+            <option value="">First</option>
+            <option value="">Second</option>
+          </select>
+        </div>
+        <KwabaButton className="bg-[#e5f2ff] text-[#51A4FB] ml-0  mt-0 border-[0.063rem] py-[0.35rem] px-6 border-[#51A4FB]">
           Search
-        </Button>
+        </KwabaButton>
       </div>
 
       <table className="table-fixed">
@@ -204,13 +221,13 @@ const Table = () => {
                 <td className="p-3">
                   <div className="flex items-center gap-2">
                     <div
-                      className="h-9 w-9 rounded-sm text-xs text-white flex items-center justify-center"
+                      className="h-9 w-9 rounded-sm text-sm uppercase mr-[0.7rem] text-white flex items-center justify-center"
                       style={{ backgroundColor: row.color }}
                     >
                       {row.initial}
                     </div>
                     <div className="flex flex-col">
-                      <span>{row.fullName}</span>
+                      <span className="text-xs">{row.fullName}</span>
                       <p className="text-[#0000004d] text-[0.65rem]">
                         {row.email}
                       </p>
@@ -218,13 +235,13 @@ const Table = () => {
                   </div>
                 </td>
 
-                <td className="p-3 text-sm">{row.phone}</td>
-                <td className="p-3 text-sm">{row.location}</td>
-                <td className="p-3 text-sm">{row.employmentStatus}</td>
-                <td className="p-3 text-sm">{row.salary}</td>
-                <td className="p-3 text-sm">{row.accommodationStatus}</td>
-                <td className="p-3 text-sm">{row.requestedAmount}</td>
-                <td className="p-3 text-sm">{row.created}</td>
+                <td className="p-3 text-xs">{row.phone}</td>
+                <td className="p-3 text-xs">{row.location}</td>
+                <td className="p-3 text-xs">{row.employmentStatus}</td>
+                <td className="p-3 text-xs">{row.salary}</td>
+                <td className="p-3 text-xs">{row.accommodationStatus}</td>
+                <td className="p-3 text-xs">{row.requestedAmount}</td>
+                <td className="p-3 text-xs">{row.created}</td>
               </tr>
             );
           })}

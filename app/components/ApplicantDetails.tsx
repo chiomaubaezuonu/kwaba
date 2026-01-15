@@ -7,10 +7,15 @@ import {
   paymentStructureData,
   loanData,
 } from "@/app/components/constants";
-import Button from "@/app/components/Button";
+
 import ApplicationStages from "@/app/components/ApplicationStages";
 import ApplicationsDetails from "@/app/components/ApplicationsDetails";
 import { useParams, usePathname, useRouter } from "next/navigation";
+import KwabaButton from "./KwabaButton";
+import { Modal } from "antd";
+import { CloseOutlined } from "@ant-design/icons";
+import { useState } from "react";
+import styles from "./ApplicantDetails.module.css";
 
 type BackLink = "Applications" | "Renter screening" | "Transactions";
 
@@ -24,6 +29,18 @@ export default function ApplicantDetails({ backLinkLabel }: ApplicantProps) {
 
   const pathName = usePathname();
   const router = useRouter();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+    router.push("/applications");
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <Container>
@@ -229,20 +246,23 @@ export default function ApplicantDetails({ backLinkLabel }: ApplicantProps) {
               {pathName.startsWith("/applications") && (
                 <div className="flex items-end">
                   {" "}
-                  <Button
+                  <Link href="/renter-screening">
+                    <KwabaButton
+                      htmlType="button"
+                      className="bg-[#d9ffde] cursor-pointer text-[#20c578]"
+                    >
+                      <img
+                        src="/images/tick.svg"
+                        className="w-4"
+                        alt="qualify tick"
+                      />
+                      Qualify
+                    </KwabaButton>
+                  </Link>
+                  <KwabaButton
                     htmlType="button"
-                    className="bg-[#d9ffde] text-[#20c578]"
-                  >
-                    <img
-                      src="/images/tick.svg"
-                      className="w-4"
-                      alt="qualify tick"
-                    />
-                    Qualify
-                  </Button>
-                  <Button
-                    htmlType="button"
-                    className="bg-[#ffe8e8] text-[#fa4444]"
+                    className="bg-[#ffe8e8] text-[#fa4444] cursor-pointer"
+                    onClick={showModal}
                   >
                     <img
                       src="/images/decline-application-icon.svg"
@@ -250,15 +270,17 @@ export default function ApplicantDetails({ backLinkLabel }: ApplicantProps) {
                       alt="decline application icon"
                     />
                     Decline
-                  </Button>
+                  </KwabaButton>
                 </div>
               )}
 
               {pathName.startsWith("/renter-screening") && (
                 <div className="flex items-end">
                   {" "}
-                  <Button
-                    onClick={() => router.push(`/renter-screening/${id}/verify`)}
+                  <KwabaButton
+                    onClick={() =>
+                      router.push(`/renter-screening/${id}/verify`)
+                    }
                     htmlType="button"
                     className="bg-[#d9ffde] text-[#20c578] cursor-pointer"
                   >
@@ -268,13 +290,13 @@ export default function ApplicantDetails({ backLinkLabel }: ApplicantProps) {
                       alt="verify-renter-icon"
                     />
                     Verify Renter
-                  </Button>
+                  </KwabaButton>
                 </div>
               )}
               {pathName.startsWith("/transactions") && (
                 <div className="flex items-end">
                   {" "}
-                  <Button
+                  <KwabaButton
                     htmlType="button"
                     className="bg-[#ffffff] text-[#20c578] border text-[0.75rem] border-[#20c578] py-[0.4rem] px-3.5"
                   >
@@ -284,8 +306,8 @@ export default function ApplicantDetails({ backLinkLabel }: ApplicantProps) {
                       alt="verify renter icon"
                     />
                     Complete payment
-                  </Button>
-                  <Button
+                  </KwabaButton>
+                  <KwabaButton
                     htmlType="button"
                     className="bg-[#20c578] text-[#ffffff] text-[0.75rem] border border-[#20c578] py-[0.4rem] px-3.5"
                   >
@@ -295,10 +317,101 @@ export default function ApplicantDetails({ backLinkLabel }: ApplicantProps) {
                       alt="add payment icon"
                     />
                     Add payment
-                  </Button>
+                  </KwabaButton>
                 </div>
               )}
             </div>
+
+            <Modal
+              title={
+                <span
+                  style={{
+                    fontSize: "1.5rem",
+                    fontWeight: 700,
+                    color: "#082353",
+                    widows: "80%",
+                    marginBottom: "1rem",
+                  }}
+                >
+                  What is your reason for declining the application?
+                </span>
+              }
+              closable={true}
+              closeIcon={
+                <CloseOutlined
+                  style={{
+                    fontSize: "1.9rem",
+                    fontWeight: "200",
+                    strokeWidth: 1,
+                  }}
+                />
+              }
+              open={isModalOpen}
+              onOk={handleOk}
+              centered
+              onCancel={handleCancel}
+              width={718}
+              okText="Decline Application"
+              okButtonProps={{
+                style: {
+                  padding: "1.3rem 1.5rem",
+                  marginLeft: "1rem",
+                  cursor: "pointer",
+                  fontSize: "1rem",
+                  textAlign: "center",
+                },
+              }}
+              cancelText="Cancel"
+              cancelButtonProps={{
+                style: {
+                  backgroundColor: "#f5f5f5",
+                  border: "none",
+                  outline: "none",
+                  padding: "1rem 1.4rem",
+                },
+                className: styles.cancelBtn,
+              }}
+              styles={{
+                mask: {
+                  backgroundColor: "rgba(0, 0, 0, 0.5)",
+                  backdropFilter: "blur(0.2px)",
+                },
+                footer: {
+                  margin: "1rem 0",
+                },
+              }}
+            >
+              <div>
+                <div className="flex items-center py-2 px-4 rounded-[0.3rem] hover:bg-[#0000000d] cursor-pointer transition-all duration-200 ease-out w-fit text-[0.8rem]">
+                  <input
+                    type="radio"
+                    className="mr-2 text-[0.7rem] cursor-pointer text-[#212529]"
+                  />
+                  Incomplete documents
+                </div>
+                <div className="flex items-center py-2 px-4 rounded-[0.3rem] hover:bg-[#0000000d] cursor-pointer transition-all duration-200 ease-out w-fit text-[0.8rem]">
+                  <input
+                    type="radio"
+                    className="mr-2 text-[0.7rem] cursor-pointer text-[#212529]"
+                  />
+                  Insufficient net income
+                </div>
+                <div className="flex items-center py-2 px-4 rounded-[0.3rem] hover:bg-[#0000000d] cursor-pointer transition-all duration-200 ease-out w-fit text-[0.8rem]">
+                  <input
+                    type="radio"
+                    className="mr-2 text-[0.7rem] cursor-pointer text-[#212529]"
+                  />
+                  Unavailability in city Unserviceable employment category
+                </div>
+                <div className="flex items-center py-2 px-4 rounded-[0.3rem] hover:bg-[#0000000d] cursor-pointer transition-all duration-200 ease-out w-fit text-[0.8rem]">
+                  <input
+                    type="radio"
+                    className="mr-2 text-[0.7rem] cursor-pointer text-[#212529]"
+                  />
+                  Unserviceable employment category
+                </div>
+              </div>
+            </Modal>
           </div>
           <ApplicationsDetails />
         </div>

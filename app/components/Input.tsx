@@ -1,3 +1,4 @@
+import { cn } from "@sglara/cn";
 import React from "react";
 
 type InputType = "text" | "password" | "email" | "checkbox";
@@ -27,6 +28,7 @@ const Input = ({
         value={value}
         name={name}
         onChange={onChange}
+        className={cn("border outline-none border-gray-200", className)}
       />
     </div>
   );

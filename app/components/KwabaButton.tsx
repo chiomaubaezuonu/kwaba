@@ -27,7 +27,7 @@ export const buttonData = [
   },
 ];
 
-const Button = ({
+const KwabaButton = ({
   className = "",
   children,
   image,
@@ -50,4 +50,4 @@ const Button = ({
   );
 };
 
-export default Button;
+export default KwabaButton;

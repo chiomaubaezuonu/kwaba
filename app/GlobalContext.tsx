@@ -3,6 +3,7 @@ import React, {
   createContext,
   FunctionComponent,
   ReactNode,
+  SetStateAction,
   useContext,
   useEffect,
   useState,
@@ -53,9 +54,12 @@ interface ContextType {
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   displayedRows: TableRow[];
   handlePagination: (i: number) => void;
-  firstIndex: number
+  firstIndex: number;
+  showSalaryAnalysis: boolean;
+  setShowSalaryAnalysis: React.Dispatch<SetStateAction<boolean>>;
+  showLandlordVerification: boolean;
+  setShowLandlordVerification: React.Dispatch<SetStateAction<boolean>>;
 }
-
 
 const GlobalContext = createContext<ContextType | undefined>(undefined);
 export const GlobalProvider: FunctionComponent<{ children: ReactNode }> = ({
@@ -65,6 +69,10 @@ export const GlobalProvider: FunctionComponent<{ children: ReactNode }> = ({
     useState<ContextType["selectedFilter"]>("New Applications");
   const [rows, setRows] = useState<TableRow[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [showSalaryAnalysis, setShowSalaryAnalysis] = useState(false);
+  const [showLandlordVerification, setShowLandlordVerification] =
+    useState(false);
+
   const pathName = usePathname();
 
   const rowCount =
@@ -136,7 +144,7 @@ export const GlobalProvider: FunctionComponent<{ children: ReactNode }> = ({
   const firstIndex = lastIndex - rowsPerPage;
 
   const displayedRows = [...rows].slice(firstIndex, lastIndex);
-  
+
   return (
     <GlobalContext.Provider
       value={{
@@ -149,7 +157,11 @@ export const GlobalProvider: FunctionComponent<{ children: ReactNode }> = ({
         setCurrentPage,
         displayedRows,
         handlePagination,
-        firstIndex
+        firstIndex,
+        showSalaryAnalysis,
+        setShowSalaryAnalysis,
+        showLandlordVerification,
+        setShowLandlordVerification,
       }}
     >
       {children}
