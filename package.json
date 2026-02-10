@@ -1,28 +1,36 @@
 {
-  "name": "frontend",
+  "name": "kwaba-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
+    "@ant-design/plots": "^2.6.8",
+    "@recharts/devtools": "github:recharts/devtools",
     "@sglara/cn": "^1.0.0",
+    "@vitejs/plugin-react": "^4.7.0",
     "antd": "^6.1.4",
-    "next": "16.0.5",
+    "chart.js": "^4.5.1",
     "react": "19.2.0",
+    "react-chartjs-2": "^5.3.1",
     "react-dom": "19.2.0",
-    "recharts": "^3.5.1"
+    "react-router-dom": "^7.13.0",
+    "recharts": "^3.5.1",
+    "vite": "^6.4.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@typescript-eslint/eslint-plugin": "^8.54.0",
+    "@typescript-eslint/parser": "^8.54.0",
     "eslint": "^9",
-    "eslint-config-next": "16.0.5",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
