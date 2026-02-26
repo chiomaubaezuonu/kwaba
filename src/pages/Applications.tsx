@@ -33,7 +33,7 @@ export const applicationsFilterData: FilterBarProps["filterData"] = [
   },
 ];
 
-const page = () => {
+const Applications = () => {
   const { selectedFilter, setSelectedFilter } = useGlobalContext();
 
   return (
@@ -45,4 +45,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Applications;

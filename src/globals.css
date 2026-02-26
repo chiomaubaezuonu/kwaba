@@ -7,7 +7,9 @@
 } */
 body {
   background-color: #eaf0f1;
-  font-family: "Montserrat", Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+  /* font-family: "Montserrat", Segoe UI, Tahoma, Geneva, Verdana, sans-serif; */
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
   font-style: normal;
   color: #082353;
 }
@@ -88,6 +90,13 @@ body {
   padding: 1.8rem 2rem;
   border-radius: 50%;
 }
+.custom-dropdown .ant-dropdown-menu {
+  background-color: #EBF2F3;
+}
+
+/* .custom-dropdown .ant-dropdown-menu-item {
+  color: white;
+} */
 
 
 

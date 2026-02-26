@@ -1,12 +1,11 @@
-;
 import React, { useEffect, useState } from "react";
 import { applicationsFilterData } from "../pages/Applications";
 import Button from "./KwabaButton";
 import KwabaButton, { buttonData } from "./KwabaButton";
 import Input from "./Input";
 import { useGlobalContext } from "../GlobalContext";
-import { useNavigate } from 'react-router-dom'
-import { useLocation } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const title = [
   "Renter",
@@ -88,9 +87,8 @@ type TableRow = {
 
 const Table = () => {
   const navigate = useNavigate();
-const location = useLocation()
-const pathname = location.pathname
-  
+  const location = useLocation();
+  const pathname = location.pathname;
 
   const {
     selectedFilter,
@@ -148,7 +146,7 @@ const pathname = location.pathname
           phone,
           created,
         };
-      }
+      },
     );
     setRows(generatedRows);
   }, [currentPage, selectedFilter]);
@@ -158,7 +156,7 @@ const pathname = location.pathname
   }, [selectedFilter]);
 
   return (
-    <div className="p-6 bg-white rounded-xl text-[#000c]">
+    <div className="p-[1.425rem] bg-white rounded-xl text-[#000c]">
       <div className="flex justify-between">
         <strong>New Applications List</strong>
         <div className="mb-4 flex gap-1">
@@ -201,7 +199,7 @@ const pathname = location.pathname
         </KwabaButton>
       </div>
 
-      <table className="table-fixed">
+      <table className="w-full">
         <thead>
           <tr className="uppercase text-[#0000004d]">
             {title.map((titleItem, index) => (
@@ -220,8 +218,12 @@ const pathname = location.pathname
                 onClick={() => navigate(`${pathname}/${globalIndex}`)}
                 className="border-b-[0.063rem] border-[#0000000d] cursor-pointer"
               >
+                <td className="w-8 p-0 text-center">
+                  <input type="checkbox" />
+                </td>
+
                 {/* Renter: avatar + name */}
-                <td className="p-3">
+                <td className="p-3 flex items-start">
                   <div className="flex items-center gap-2">
                     <div
                       className="h-9 w-9 rounded-sm text-sm uppercase mr-[0.7rem] text-white flex items-center justify-center"

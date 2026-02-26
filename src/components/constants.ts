@@ -1,4 +1,3 @@
-
 export const title = [
   "Renter",
   "Phone number",
@@ -202,3 +201,23 @@ export const appDetails = [
   },
 ];
 
+export const monthlyActivePayments = {
+  numberOfActivePayments: Math.floor(Math.random() * 30) + 20,
+  numberOfDefaultPayments: Math.floor(Math.random() * 20) + 5,
+  valueOfActivePayments: Math.floor(Math.random() * 4000000) + 5000000,
+
+  //  valueOfActivePayments: Math.round(Math.random() * 10) * 500000 + 1000000,  This should be for yearly Total value of active payments
+};
+
+export const totaltimesOfPayment =
+  monthlyActivePayments.numberOfActivePayments +
+  monthlyActivePayments.numberOfDefaultPayments;
+
+export const percentagePaidMonthly = Math.round(
+  (monthlyActivePayments.numberOfActivePayments / totaltimesOfPayment) * 100,
+);
+
+export const percentageDefaultedMonthly = 100 - percentagePaidMonthly;
+export const monthlyDefaultingPayments =
+  (monthlyActivePayments.valueOfActivePayments / totaltimesOfPayment) *
+  monthlyActivePayments.numberOfDefaultPayments;

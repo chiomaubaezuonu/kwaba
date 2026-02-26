@@ -29,7 +29,7 @@ import Table from "../components/Table";
   },
 ];
 
-const page = () => {
+const RenterScreening = () => {
   const { selectedFilter, setSelectedFilter } = useGlobalContext();
 console.log(renterFilterData)
   return (
@@ -41,4 +41,4 @@ console.log(renterFilterData)
   );
 };
 
-export default page;
+export default RenterScreening;

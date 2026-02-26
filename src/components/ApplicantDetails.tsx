@@ -7,7 +7,7 @@ import {
   loanData,
 } from "@/components/constants";
 
-import ApplicationStages from "/Users/chiom/Documents/projects/personal/kwaba-app/src/components/ApplicationStages";
+import ApplicationStages from "./ApplicationStages";
 import ApplicationsDetails from "@/components/ApplicationsDetails";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import KwabaButton from "./KwabaButton";

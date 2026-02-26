@@ -45,7 +45,7 @@ const Header = () => {
 
   return (
     <div className="flex flex-col">
-      <div className="flex py-4 px-12 justify-between bg-white">
+      <div className="flex py-[0.95rem] px-[2.85rem] justify-between bg-white">
         <div className="flex gap-7.5 justify-center items-center">
           <img src="/images/SOMOS.png" alt="somos-logo" className="w-30" />
           <div className="flex items-center gap-2 bg-[#ebf2f3] rounded-[0.3rem] pl-3">
@@ -61,7 +61,8 @@ const Header = () => {
           <img src="/images/bell.svg" alt="bell" className="w-4 md:w-3" />
           <span className="flex items-center">
             <span className="mr-4 ml-8 hidden md:block">
-              Hi,<strong className="text-[#082353]">James</strong>
+              <span className="text-[0.95rem] mr-1">Hi,</span>
+              <strong className="text-[#082353]">James</strong>
             </span>
             <span className="py-[0.3rem] px-[0.8rem] text-[#1564db] font-bold rounded-lg bg-[#EBF2F3]">
               J
@@ -69,7 +70,7 @@ const Header = () => {
           </span>
         </div>
       </div>
-      <nav className="bg-[#082353] relative flex flex-wrap items-center py-6 px-6 md:px-12">
+      <nav className="bg-[#082353] relative flex flex-wrap items-center py-[1.425rem] px-[2.05rem]">
         {!isNavLinksOpen ? (
           <img
             src="/images/menu.svg"
@@ -93,7 +94,7 @@ const Header = () => {
               pathname === navItem.link
                 ? "bg-[#e1f5f8] text-black"
                 : "text-white"
-            }  py-[0.2rem] hover:bg-[#c8c8c833] px-4 rounded-2xl duration-40 ease-out mx-2.5 cursor-pointer`}
+            }  py-[0.285rem] hover:bg-[#c8c8c833] px-4 rounded-2xl duration-40 ease-out mx-2.5 cursor-pointer`}
           >
             <img src={navItem.image} alt="" className={navItem.className} />
             {navItem.text}
@@ -109,7 +110,7 @@ const Header = () => {
                   pathname === navItem.link
                     ? "bg-[#e1f5f8] text-black"
                     : "text-white"
-                }  py-[0.2rem] mb-4 hover:bg-[#c8c8c833] px-4 rounded-2xl duration-40 ease-out mx-2.5 cursor-pointer`}
+                }  py-[0.285rem] mb-4 hover:bg-[#c8c8c833] px-4 rounded-2xl duration-40 ease-out mx-2.5 cursor-pointer`}
               >
                 <img src={navItem.image} alt="" className="mr-1.5 w-5.5" />
                 {navItem.text}
